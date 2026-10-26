@@ -1,0 +1,21 @@
+# Local data — never commit enterprise documents
+data/
+*.db
+*.db-journal
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+
+# Uploads and logs
+*.log
