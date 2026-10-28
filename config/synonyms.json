@@ -1,0 +1,13 @@
+{
+  "deployment": ["rollout", "release", "deploy"],
+  "access": ["provisioning", "permission", "permissions"],
+  "databricks": ["workspace"],
+  "onboarding": ["joiner", "new-hire", "new hire"],
+  "rollback": ["revert", "roll back"],
+  "p360": ["personalization", "personalization 360", "p-360"],
+  "dec": ["digital experience", "digital experience confluence"],
+  "personalization": ["p360", "pers platform", "personalization platform"],
+  "confluence": ["wiki", "confluence page"],
+  "kt": ["knowledge transfer", "onboarding"],
+  "integration": ["integration guide", "api guide"]
+}
