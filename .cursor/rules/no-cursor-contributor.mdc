@@ -1,0 +1,21 @@
+---
+description: Keep GitHub Contributors free of cursoragent — no Cursor commit/PR attribution
+alwaysApply: true
+---
+
+# No Cursor Agent on GitHub Contributors
+
+GitHub lists **cursoragent** when commits include `Co-authored-by: Cursor <cursoragent@cursor.com>` or similar trailers.
+
+## Before every commit and push (agent work on this repo)
+
+1. Ensure hooks are installed once: `./scripts/install-git-hooks.sh`
+2. After creating commits, before `git push`, run: `./scripts/strip-cursor-attribution-from-unpushed.sh`
+3. Verify: `git log @{u}..HEAD --format=%B | grep -iE 'co-authored-by: cursor|made-with: cursor|cursoragent'` must print nothing
+4. Do **not** use `git commit --trailer` for Cursor. Do **not** add co-author lines in commit messages.
+
+## If trailers still appear
+
+Run `strip-cursor-attribution-from-unpushed.sh` again, or amend the latest commit message in the terminal without Cursor attribution.
+
+User should keep **Cursor Settings → Git & PRs → Attribution → Commit attribution** OFF (and PR attribution OFF if undesired).

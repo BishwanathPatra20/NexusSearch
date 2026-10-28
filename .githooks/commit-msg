@@ -1,0 +1,11 @@
+#!/bin/sh
+# Drop Cursor agent attribution so GitHub Contributors stays author-only.
+# Cursor injects these before hooks run; commit-msg is the last edit before the commit is recorded.
+MSG_FILE=$1
+[ -n "$MSG_FILE" ] && [ -f "$MSG_FILE" ] || exit 0
+
+tmp="${MSG_FILE}.cursor-strip.$$"
+grep -viE '^(co-authored-by:[[:space:]]*cursor([[:space:]]*<|$)|made-with:[[:space:]]*cursor)' "$MSG_FILE" \
+  | grep -vi 'cursoragent@cursor.com' > "$tmp" || true
+mv "$tmp" "$MSG_FILE"
+exit 0
