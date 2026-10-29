@@ -1,0 +1,17 @@
+KnowledgePilot sample — deployment runbook (synthetic)
+
+Deployment process
+1. Build the application package on the release branch.
+2. Run smoke tests in the staging environment.
+3. Obtain change approval from the operations lead.
+4. Deploy to production using the standard rollout playbook.
+5. Verify health endpoints and rollback if error rate increases.
+
+Databricks onboarding (reference)
+Employees must submit an access request through the internal portal.
+Manager approval is required before security validation.
+After approval, the platform team provisions the Databricks workspace account.
+
+Release 3.4 highlights
+- Improved search indexing performance.
+- Fixed document upload size limits for large PDF files.
