@@ -38,6 +38,25 @@ class Settings(BaseSettings):
     confluence_auth_mode: str = "auto"
     # When false, status/spaces work but sync endpoints return 403 (read-only / audit mode).
     confluence_sync_enabled: bool = True
+    # Fetch Confluence pages over PAT during Search when not in the local index (page id / title).
+    confluence_live_search_enabled: bool = True
+    hybrid_rerank_enabled: bool = True
+
+    # Local RAG bot (optional Ollama on localhost — no cloud SDKs)
+    rag_bot_enabled: bool = True
+    rag_llm_enabled: bool = True
+    rag_top_k: int = 8
+    ollama_base_url: str = "http://127.0.0.1:11434"
+    ollama_model: str = "llama3.2"
+    ollama_timeout_sec: float = 90.0
+    ollama_temperature: float = 0.2
+
+    # Scheduled Confluence refresh (optional; uses PAT only).
+    confluence_scheduled_space_key: Optional[str] = None
+    confluence_scheduled_parent_page_id: Optional[str] = None
+    confluence_scheduled_max_pages: int = 50
+    confluence_schedule_cron_hour: int = 6
+    confluence_schedule_cron_minute: int = 0
 
     # Optional Bearer token for /orchestrate and /automations (unset = localhost trust)
     api_key: Optional[str] = None

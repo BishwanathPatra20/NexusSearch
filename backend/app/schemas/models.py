@@ -75,6 +75,17 @@ class SearchHit(BaseModel):
     confluence_page_id: Optional[str] = None
 
 
+class ConfluenceLiveHit(BaseModel):
+    """Confluence page fetched live via PAT — not necessarily in the local ingest index."""
+
+    page_id: str
+    title: str
+    snippet: str
+    web_url: Optional[str] = None
+    space_key: Optional[str] = None
+    indexed_locally: bool = False
+
+
 class SearchResponse(BaseModel):
     search_id: Optional[int] = None
     query: str
@@ -83,6 +94,8 @@ class SearchResponse(BaseModel):
     results_count: int
     results: List[SearchHit]
     filters_applied: dict = Field(default_factory=dict)
+    confluence_live: List[ConfluenceLiveHit] = Field(default_factory=list)
+    confluence_live_error: Optional[str] = None
 
 
 class SearchClickRequest(BaseModel):
@@ -262,6 +275,8 @@ class ApprovedKnowledgeOut(BaseModel):
     approved_answer: str
     reviewer: str
     approved_at: datetime
+    content_hash: Optional[str] = None
+    source_chunk_ids: List[int] = Field(default_factory=list)
 
 
 class LineageValidationOut(BaseModel):

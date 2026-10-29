@@ -138,6 +138,39 @@ def apply_migrations(conn: sqlite3.Connection) -> None:
             "ALTER TABLE automation_schedules ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"
         )
 
+    conn.executescript(
+        """
+        CREATE TABLE IF NOT EXISTS governance_audit_events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_type TEXT NOT NULL,
+            actor TEXT NOT NULL DEFAULT 'local-user',
+            resource_type TEXT NOT NULL DEFAULT 'system',
+            resource_id TEXT,
+            detail_json TEXT NOT NULL DEFAULT '{}',
+            created_at TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+        CREATE INDEX IF NOT EXISTS idx_governance_audit_type
+            ON governance_audit_events(event_type, created_at DESC);
+
+        CREATE TABLE IF NOT EXISTS confluence_sync_schedules (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
+            enabled INTEGER NOT NULL DEFAULT 0,
+            space_key TEXT,
+            parent_page_id TEXT,
+            max_pages INTEGER NOT NULL DEFAULT 50,
+            last_run_at TEXT,
+            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+        );
+        """
+    )
+
+    if _has_column(conn, "approved_knowledge", "content_hash") is False:
+        conn.execute("ALTER TABLE approved_knowledge ADD COLUMN content_hash TEXT")
+    if _has_column(conn, "approved_knowledge", "source_chunk_ids_json") is False:
+        conn.execute(
+            "ALTER TABLE approved_knowledge ADD COLUMN source_chunk_ids_json TEXT NOT NULL DEFAULT '[]'"
+        )
+
     _migrate_fts_document_metadata(conn)
 
 
