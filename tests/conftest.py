@@ -1,18 +1,25 @@
 import os
+import tempfile
 from pathlib import Path
 
 import pytest
 
 
-@pytest.fixture(scope="session")
-def test_data_dir(tmp_path_factory: pytest.TempPathFactory) -> Path:
-    data = tmp_path_factory.mktemp("nexussearch_data")
-    os.environ["KNOWLEDGEPILOT_DATA_DIR"] = str(data)
-    # Empty onboarding dir so startup does not auto-import the repo workbook into test DB.
-    onboarding = data / "onboarding"
+def pytest_configure(config: pytest.Config) -> None:
+    """Isolate SQLite before any test imports `backend.app.main` (module-level bootstrap)."""
+    if os.environ.get("KNOWLEDGEPILOT_PYTEST_CONFIGURED") == "1":
+        return
+    base = Path(tempfile.mkdtemp(prefix="nexussearch_pytest_"))
+    os.environ["KNOWLEDGEPILOT_DATA_DIR"] = str(base)
+    onboarding = base / "onboarding"
     onboarding.mkdir(parents=True, exist_ok=True)
     os.environ["KNOWLEDGEPILOT_ONBOARDING_DIR"] = str(onboarding)
-    return data
+    os.environ["KNOWLEDGEPILOT_PYTEST_CONFIGURED"] = "1"
+
+
+@pytest.fixture(scope="session")
+def test_data_dir() -> Path:
+    return Path(os.environ["KNOWLEDGEPILOT_DATA_DIR"])
 
 
 @pytest.fixture(scope="session")

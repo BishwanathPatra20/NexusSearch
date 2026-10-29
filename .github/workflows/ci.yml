@@ -22,7 +22,9 @@ jobs:
         env:
           PYTHONPATH: .
           KNOWLEDGEPILOT_DATA_DIR: ${{ runner.temp }}/nexussearch-data
+          KNOWLEDGEPILOT_ONBOARDING_DIR: ${{ runner.temp }}/nexussearch-onboarding-empty
         run: |
+          mkdir -p "$KNOWLEDGEPILOT_ONBOARDING_DIR"
           if [ ! -d tests ] || ! compgen -G "tests/test_*.py" > /dev/null; then
             echo "tests/ not in repo yet — skip (add with backend commits)"
             exit 0

@@ -19,21 +19,23 @@ Incremental commits to [NexusSearch](https://github.com/BishwanathPatra20/NexusS
 | 2 | Config, constants, `backend/app/db/*`, `schemas/models.py`, CI v7/ubuntu-24.04, `config/synonyms.json` | Yes |
 | — | Git hooks + agent rule (clean commit messages) | Yes |
 | 3 | Ingestion parsers, chunker/fingerprint/base, Confluence export helper | Yes |
+| **4** | Documents & jobs (`document_service`, `job_service`, routes) | Yes |
+| **5** | Search & synonyms | Yes |
+| **6** | Governed Ask & reviews (agents, review API) | Yes |
+| **7** | Lineage, analytics, governance audit, hybrid rerank | Yes |
+| **8** | Automations (registry, scheduler, steward jobs) | Yes |
+| **9** | Confluence PAT sync/live search; onboarding KT | Yes |
+| **10** | API entry (`main.py`), migrations, agent tools | Yes |
+| **11** | Streamlit UI + floating RAG assistant | Yes |
+| **12** | Tests, docs, samples, extra scripts | Yes |
 
 ## Remaining schedule
 
+All planned days **4–12 are pushed** as themed commits on `main`. Future work: small follow-up PRs only (no bulk `git add .`).
+
 | Day | Focus | Paths (typical) |
 |-----|--------|-----------------|
-| **4** | Documents & jobs | `document_service`, `job_service`, `text_snippet`, `routes/documents.py`, `routes/jobs.py` |
-| **5** | Search & synonyms | `search_service`, `synonym_service`, `synonym_proposal_service`, `schemas/search_filters.py`, `routes/search.py`, `routes/synonyms.py` |
-| **6** | Governed Ask & reviews | `agents/*`, `governance_service`, `orchestration_service`, `review_service`, `routes/ask.py`, `routes/reviews.py` |
-| **7** | Lineage & analytics | `lineage_service`, `analytics_service`, `routes/lineage.py`, `routes/analytics.py` |
-| **7b** | Extra schemas | `schemas/agents.py`, `schemas/confluence.py`, `schemas/onboarding.py` (split if large) |
-| **8** | Automations | `services/automation/**`, `automation_scheduler`, `automation_schedule_service`, `agent_*`, `routes/agents.py` |
-| **9** | Confluence & onboarding | `integrations/*`, `confluence_*`, `onboarding_*`, `onboarding_days.py`, `config/onboarding/README.md`, corpus markdown (defer large `.xlsx` or use LFS) |
-| **10** | API entry | `main.py`, `api/agent_auth.py`, `api/routes/__init__.py` + any routes not yet pushed |
-| **11** | Streamlit UI | `frontend/**`, `.streamlit/config.toml` tweaks if needed |
-| **12** | Tests, docs, samples | `tests/`, `docs/` (including this file), `samples/demo_corpus`, `scripts/import_onboarding_xlsx.py`, `scripts/run-automations.sh` |
+| — | *Optional polish* | GitHub About/topics, release tag v1.1 |
 
 ## Suggested commit count per day
 
