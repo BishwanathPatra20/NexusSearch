@@ -616,6 +616,118 @@ def inject_enterprise_theme(theme: str | None = None) -> None:
         width: 100%;
         margin-top: -1.85rem;
     }}
+    /*
+     * Home typography (_Home.py / home_view.py) — main canvas only.
+     * Scoped with section.main:has(.ns-home-page) because Streamlit splits HTML
+     * across blocks (ns-home-landing does not wrap the hero). Sidebar nav unchanged.
+     * Ingest demo corpus (st.page_link) keeps its own 0.92rem pill styles below.
+     */
+    /* Hero — top pill: "Office-safe · 127.0.0.1 · no cloud LLMs" */
+    section.main:has(.ns-home-page) .ns-home-pill {{
+        font-size: 1.15rem;
+        padding: 0.45rem 0.95rem;
+    }}
+    /* Hero — stats under CTA: "16 documents indexed · 83 searches logged" */
+    section.main:has(.ns-home-page) .ns-home-proof {{
+        font-size: 1.35rem;
+    }}
+    /* Section headings: WORKFLOWS | AUTOMATION HEALTH | RECENT CATALOG */
+    section.main:has(.ns-home-page) .ns-home-workflow-block .ns-section-label,
+    section.main:has(.ns-home-page) .ns-home-automation-block .ns-section-label,
+    section.main:has(.ns-home-page) .ns-home-catalog-block .ns-section-label {{
+        font-size: 0.88rem;
+    }}
+    /* Hero — headline: "Search. Review. Approve." (see end-of-sheet override for Streamlit markdown) */
+    section.main:has(.ns-home-page) .ns-home-title-line {{
+        font-size: clamp(3.4rem, 7.2vw, 5rem);
+    }}
+    /* Hero — paragraph under headline (local-first knowledge governance…) */
+    section.main:has(.ns-home-page) .ns-home-lead {{
+        font-size: 1.85rem;
+        line-height: 1.55;
+    }}
+    /* Hero — three bullet points under the paragraph */
+    section.main:has(.ns-home-page) .ns-home-value-list {{
+        font-size: 1.54rem;
+        line-height: 1.55;
+    }}
+    /* Workflows row — node titles (New hire guide, Search, …) */
+    section.main:has(.ns-home-page) .ns-flow-title {{
+        font-size: 1.43rem;
+    }}
+    /* Workflows row — node subtitles (KT · access · Confluence, …) */
+    section.main:has(.ns-home-page) .ns-flow-sub {{
+        font-size: 1.2rem;
+    }}
+    /* Workflows row — circle size above each node (not text; scales with labels) */
+    section.main:has(.ns-home-page) .ns-flow-ring {{
+        width: 3.75rem;
+        height: 3.75rem;
+        margin-bottom: 0.65rem;
+    }}
+    /* Workflows row — max width per clickable node */
+    section.main:has(.ns-home-page) a.ns-flow-node-link {{
+        flex: 0 1 168px;
+    }}
+    /* Recent catalog / review queue panel titles + intro lines */
+    section.main:has(.ns-home-page) .ns-workflow-panel h4 {{
+        font-size: 1.65rem;
+    }}
+    section.main:has(.ns-home-page) .ns-workflow-panel p {{
+        font-size: 1.5rem;
+    }}
+    /* Automation health — green/yellow/red status bar text */
+    section.main:has(.ns-home-page) .ns-home-health,
+    section.main:has(.ns-home-page) .ns-home-health-text {{
+        font-size: 1.45rem;
+    }}
+    section.main:has(.ns-home-page) .ns-home-health {{
+        padding: 0.85rem 1rem;
+    }}
+    /* Recent catalog — document rows (title, source, date) */
+    section.main:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMarkdownContainer"] p,
+    section.main:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMarkdownContainer"] strong {{
+        font-size: 1.5rem !important;
+    }}
+    /* Recent catalog + automation — st.caption lines ("+ N more…", health reasons) */
+    section.main:has(.ns-home-page) .ns-home-catalog-block [data-testid="stCaptionContainer"] p,
+    section.main:has(.ns-home-page) .ns-home-automation-block [data-testid="stCaptionContainer"] p {{
+        font-size: 1.35rem !important;
+    }}
+    /* Review queue — st.metric label ("Pending") */
+    section.main:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMetricLabel"] {{
+        font-size: 1.35rem !important;
+    }}
+    /* Review queue — st.metric value (pending count) */
+    section.main:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMetricValue"] {{
+        font-size: 2.5rem !important;
+    }}
+    /* Automation health — expander / bullet reasons when not green */
+    section.main:has(.ns-home-page) .ns-home-automation-block [data-testid="stMarkdownContainer"] p {{
+        font-size: 1.4rem !important;
+    }}
+    section.main:has(.ns-home-page) .ns-home-automation-block [data-testid="stExpander"] p,
+    section.main:has(.ns-home-page) .ns-home-automation-block [data-testid="stExpander"] li {{
+        font-size: 1.35rem !important;
+    }}
+    /* Top chrome — "Search corpus…" input (home only) */
+    section.main:has(.ns-home-page) .ns-search-block input {{
+        font-size: 1.5rem !important;
+        min-height: 2.85rem !important;
+    }}
+    /* Top chrome — "Press Enter to submit the form" helper */
+    section.main:has(.ns-home-page) .ns-search-hint {{
+        font-size: 1.25rem !important;
+    }}
+    /* Home Streamlit buttons (Open Ingest hub, Governed Ask, …) — not Ingest demo corpus link */
+    section.main:has(.ns-home-page) [data-testid="stButton"] button {{
+        font-size: 1.35rem !important;
+    }}
+    /* API unreachable — st.error banner on home */
+    section.main:has(.ns-home-page) [data-testid="stAlert"] p,
+    section.main:has(.ns-home-page) [data-testid="stAlert"] div {{
+        font-size: 1.35rem !important;
+    }}
     .ns-home-bg-decor {{
         position: absolute;
         top: -5.5rem;
@@ -818,7 +930,7 @@ def inject_enterprise_theme(theme: str | None = None) -> None:
         align-items: baseline;
         column-gap: 0.28em;
         row-gap: 0.08em;
-        font-size: clamp(2.15rem, 4.8vw, 3.15rem);
+        font-size: clamp(3.4rem, 7.2vw, 5rem);
         font-weight: 650;
         letter-spacing: -0.03em;
         color: {p["text"]};
@@ -2217,6 +2329,63 @@ def inject_enterprise_theme(theme: str | None = None) -> None:
         background-color: #0c0c0c !important;
         border: none !important;
         border-radius: 999px !important;
+    }}
+
+    /*
+     * Home — workflows, catalog (reliable .stApp:has scope). Product card uses base .ns-home-pro-* sizes.
+     */
+    .stApp:has(.ns-home-page) .ns-section-label {{
+        font-size: 0.88rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-flow-title {{
+        font-size: 0.95rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-flow-sub {{
+        font-size: 0.8rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-health,
+    .stApp:has(.ns-home-page) .ns-home-health-text {{
+        font-size: 0.95rem !important;
+    }}
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] .ns-workflow-panel h4 {{
+        font-size: 1.08rem !important;
+    }}
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] .ns-workflow-panel p {{
+        font-size: 0.98rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMarkdownContainer"] p,
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMarkdownContainer"] strong {{
+        font-size: 1.02rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stCaptionContainer"] p,
+    .stApp:has(.ns-home-page) .ns-home-automation-block [data-testid="stCaptionContainer"] p {{
+        font-size: 0.92rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMetricLabel"] {{
+        font-size: 0.92rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stMetricValue"] {{
+        font-size: 1.75rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-automation-block [data-testid="stMarkdownContainer"] p {{
+        font-size: 0.95rem !important;
+    }}
+    .stApp:has(.ns-home-page) .ns-home-catalog-block [data-testid="stButton"] button,
+    .stApp:has(.ns-home-page) .ns-home-automation-block [data-testid="stButton"] button {{
+        font-size: 0.95rem !important;
+    }}
+
+    /* Home hero headline — wins over Streamlit markdown h1 defaults (unsafe_allow_html blocks) */
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] h1.ns-home-title,
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] .ns-home-title-line,
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] .ns-home-title-sans {{
+        font-size: clamp(3.4rem, 7.2vw, 5rem) !important;
+    }}
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] h1.ns-home-title {{
+        font-size: unset !important;
+    }}
+    .stApp:has(.ns-home-page) [data-testid="stMarkdownContainer"] .ns-home-title-em {{
+        font-size: 1.02em !important;
     }}
 </style>
 """,
